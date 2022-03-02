@@ -1,0 +1,762 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "./components/card-detail.njk" import cardDetail %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Application
+{% endblock %}
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to applications",
+    href: "/applications",
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">  
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Application ({{ref}}) - {{status|safe }}</h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+  
+{% set cphNo = [livestock["cph-day"],"/", livestock["cph-month"],"/", livestock["cph-year"]] | join %} 
+    {% set farmerSummaryItems = [
+            {
+              key: {
+                text: "Name"
+              },
+              value: {
+                text:  farmerDetails
+              }
+            },
+            {
+              key: {
+                text: "CRN"
+              },
+              value: {
+                text:  farmerCRN
+              }
+            },
+            {
+              key: {
+                text: "Contact details"
+              },
+              value: {
+                html: farmerContactDetails
+              }
+            },
+            {
+              key: {
+                text: "Business address"
+              },
+              value: {
+                html: farmerAddressDetails
+              }
+            },
+            {
+              key: {
+                text: "Project postcode"
+              },
+              value: {
+                html: farmerPostCode
+              }
+            }
+          ]
+        %}
+{% set farmerDetailsHtml %}
+{{ govukSummaryList({ rows: farmerSummaryItems }) }}
+{% endset -%}
+
+{% set businessDetailsHtml %}
+  {{ govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "Project name"
+                },
+                value: {
+                  text:  businessDetails.projectName
+                }
+              },
+              {
+                key: {
+                  text: "Business name"
+                },
+                value: {
+                  text: businessDetails.businessName
+                }
+              },
+              {
+                key: {
+                  text: "Business type"
+                },
+                value: {
+                  text: businessDetails.businessType
+                }
+              },
+              {
+                key: {
+                  text: "Business activity"
+                },
+                value: {
+                  text: businessDetails.businessActivity
+                }
+              },
+              {
+                key: {
+                  text: "Business agriculture area"
+                },
+                value: {
+                  text: businessDetails.businessAgriArea
+                }
+              },
+              {
+                key: {
+                  text: "Business horticulture area"
+                },
+                value: {
+                  text: businessDetails.businessHorticultureArea
+                }
+              },
+              {
+                key: {
+                  text: "Business woodland area"
+                },
+                value: {
+                  text: businessDetails.businessWoodlandArea
+                }
+              },
+              {
+                key: {
+                  text: "Business registered owner"
+                },
+                value: {
+                  text: businessDetails.businessRegisteredOwner
+                }
+              },
+              {
+                key: {
+                  text: "Business owner gender"
+                },
+                value: {
+                  text: businessDetails.businessRegisteredOwnerGender
+                }
+              },
+              {
+                key: {
+                  text: "Business landline"
+                },
+                value: {
+                  text: businessDetails.businessLandline
+                }
+              },
+              {
+                key: {
+                  text: "Business mobile"
+                },
+                value: {
+                  text: businessDetails.businessMobile
+                }
+              },
+              {
+                key: {
+                  text: "Number of employees"
+                },
+                value: {
+                  text: businessDetails.numberEmployees
+                }
+              },
+              {
+                key: {
+                  text: "Business turnover"
+                },
+                value: {
+                  text: businessDetails.businessTurnover
+                }
+              },
+              {
+                key: {
+                  text: "Single Business Identifier (SBI)"
+                },
+                value: {
+                  text: businessDetails.sbi
+                }
+              }
+            ]
+          })
+        }}
+{% endset -%}
+
+{% set declarationHtml %}
+{{ govukSummaryList({ rows: [
+          {
+              key: {
+                text: "Read and signed"
+              },
+              value: {
+                text:  agreement.ras
+              }
+            }
+        ] }) }}
+{% endset -%}
+{% set attachFileHtml %}
+      <form method="POST" enctype="multipart/form-data"  action="{{ formActionPage }}" autocomplete="on" novalidate>
+        {{ crumbToken(crumb)}}      
+        {{ govukFileUpload({
+          id: "file",
+          name: "file",
+          label: {
+            text: "Upload a file"
+          }
+        }) }}
+        {{ govukButton({
+          text: "Submit",
+          attributes: {id: "btnSubmit"}
+        }) }}
+      </form>
+{% endset -%}
+{% set equipmentsHtml %}
+<h2 class="govuk-heading-l">Equipments</h2>
+{{ govukTable({
+  head: [
+    {
+      text: "ID"
+    },
+    {
+      text: "Quantity"
+    },
+    {
+      text: "Unit Price"
+    },
+    {
+      text: "Total"
+    }
+  ],
+  rows: equipments
+}) }}
+             
+{% endset -%}
+{% set liveStocksHtml %}
+        {{ govukSummaryList({ rows: [
+          {
+              key: {
+                text: "Below 6 months"
+              },
+              value: {
+                text:  livestock.Below6months
+              }
+            },{
+              key: {
+                text: "From 6 months to 2 year old"
+              },
+              value: {
+                text:  livestock.from6monthto2year
+              }
+            },{
+              key: {
+                text: "Dairy cows"
+              },
+              value: {
+                text:  livestock.dairyCows
+              }
+            },{
+              key: {
+                text: "Other cattle, over 2 years old"
+              },
+              value: {
+                text:  livestock.otherCattleOver2Year
+              }
+            }
+        ] }) }}
+{% endset -%}
+{% set otherStocksHtml %}
+         {{ govukSummaryList({ rows: [
+          {
+              key: {
+                text: "Sheep and goats"
+              },
+              value: {
+                text:  livestock.shipAndGoats
+              }
+            },{
+              key: {
+                text: "Pigs (breeding sows over 50kg)"
+              },
+              value: {
+                text:  livestock.pigsOver50Kg
+              }
+            },{
+              key: {
+                text: "Pigs (other)"
+              },
+              value: {
+                text:  livestock.pigsOther
+              }
+            },{
+              key: {
+                text: "Poultry (laying hens)"
+              },
+              value: {
+                text:  livestock.poultryLayingHens
+              }
+            },{
+              key: {
+                text: "Poultry (other)"
+              },
+              value: {
+                text:  livestock.poultryOther
+              }
+            }
+        ] }) }}
+{% endset -%}
+{% set forestryHtml %}
+{{ govukSummaryList({ rows: forestry }) }}
+{% endset -%}
+{% set attachmentHtml %}
+<form method="POST" enctype="multipart/form-data"  action="{{ formActionPage }}" autocomplete="on" novalidate>
+        {{ crumbToken(crumb)}}      
+        {{ govukFileUpload({
+          id: "file",
+          name: "file",
+          label: {
+            text: "Upload a file"
+          }
+        }) }}
+        {{ govukButton({
+          text: "Submit",
+          attributes: {id: "btnSubmit"}
+        }) }}
+      </form>
+
+
+{{ govukTable({
+  head: [
+    {
+      text: "Documents"
+    }
+  ],
+  rows: docs
+}) }}
+{% endset -%}
+{% set stages%}
+
+{{ govukTable({
+  attributes: {
+    'data-module': 'moj-sortable-table'
+  },
+  head: [
+    {
+      text: "Type",
+      attributes: {
+        "aria-sort": "ascending"
+      }
+    },
+    {
+      text: "Name",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "User Groups",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Business Process",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "SLA",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Status",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Created On",
+      attributes: {
+        "aria-sort": "none"
+      },
+      format: "date"
+    }
+  ],
+  rows: stages.applicationstages
+}) }}
+{% endset -%}
+
+{%- from "moj/components/timeline/macro.njk" import mojTimeline -%}
+
+{%- set confirmationHtml %}
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non felis risus. Curabitur nec ante vitae felis ullamcorper tincidunt.</p>
+  <a class="govuk-button govuk-!-margin-bottom-0" href="#">Continue</a>
+{% endset -%}
+
+{%- set detailsHtml %}
+<details class="govuk-details govuk-!-margin-bottom-0">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Application details
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    Ut quam nunc, vulputate ac metus pharetra, posuere maximus velit. <a href="https://www.google.com">Etiam nec interdum velit.</a> Suspendisse molestie lectus in eros ornare
+  </div>
+</details>
+{% endset -%}
+
+{%- set listHtml %}
+  <ul class="govuk-list govuk-list--bullet">
+    <li><a class="govuk-link" href="#">Item 1</li>
+    <li><a class="govuk-link" href="#">Item 2</li>
+  </ul>
+{% endset -%}
+
+{%- set documentsHtml %}
+  <ul class="moj-timeline__documents">
+    <li class="moj-timeline__document-item">
+      <a class="moj-timeline__document-link" href="#">Document 1</a>
+    </li>
+    <li class="moj-timeline__document-item">
+      <a class="moj-timeline__document-link" href="#">Document 1</a>
+    </li>
+  </ul>
+{% endset -%}
+{% set appRefDetails = ["Your application has been received – reference ", ref ] | join %}
+{%- set auditHtml %}
+{{ mojTimeline({
+  items: [
+    {
+      label: {
+        text: "Application requires confirmation"
+      },
+      html: confirmationHtml,
+      datetime: {
+        timestamp: "2019-06-14T14:01:00.000Z",
+        type: "datetime"
+      },
+      byline: {
+        text: farmerDetails
+      }
+    },
+    {
+      label: {
+        text:  "Application review in progress"
+      },
+      text: "Your application is being reviewed by one of our case workers.",
+      datetime: {
+        timestamp: "2019-06-07T12:32:00.000Z",
+        type: "datetime"
+      },
+      byline: {
+        text: "Caseworker 1"
+      }
+    },
+    {
+      label: {
+        text:  "Application received"
+      },
+      text: appRefDetails,
+      datetime: {
+        timestamp: "2019-06-06T09:12:00.000Z",
+        type: "datetime"
+      },
+      byline: {
+        text: "Caseworker 1"
+      }
+    },
+    {
+      label: {
+        text:  "Application submitted"
+      },
+      html: detailsHtml,
+      datetime: {
+        timestamp: "2019-05-28T10:45:00.000Z",
+        type: "datetime"
+      },
+      byline: {
+        text: farmerDetails
+      }
+    },
+    {
+      label: {
+        text:  "Documents uploaded"
+      },
+      html: documentsHtml,
+      datetime: {
+        timestamp: "2019-05-28T10:15:00.000Z",
+        type: "datetime"
+      },
+      byline: {
+        text: farmerDetails
+      }
+    },
+    {
+      label: {
+        text:  "Application started"
+      },
+      html: listHtml,
+      datetime: {
+        timestamp: "2019-05-21T13:15:00.000Z",
+        type: "datetime"
+      },
+      byline: {
+        text: farmerDetails
+      }
+    }
+  ]
+}) }}
+
+{% endset -%}
+
+{% set ApplicantHtml %}
+{{ govukAccordion({
+  id: "accordion-default",
+  items: [
+    {
+      heading: {
+        text: "Applicant Details"
+      },
+      content: {
+        html: farmerDetailsHtml
+      }
+    },
+    {
+      heading: {
+        text: "Business Details"
+      },
+      content: {
+        html: businessDetailsHtml
+      }
+    },
+    {
+      heading: {
+        text: "Declaration"
+      },
+      content: {
+        html: declarationHtml
+      }
+    },
+    {
+      heading: {
+        text: "County Parish Holding"
+      },
+      content: {
+        html: cphNo
+      }
+    },
+    {
+      heading: {
+        text: "Equipments"
+      },
+      content: {
+        html: equipmentsHtml
+      }
+    },
+    {
+      heading: {
+        text: "Live Stocks"
+      },
+      content: {
+        html: liveStocksHtml
+      }
+    },
+    {
+      heading: {
+        text: "Other Stocks"
+      },
+      content: {
+        html: otherStocksHtml
+      }
+    },
+    {
+      heading: {
+        text: "Land Parcel ID's"
+      },
+      content: {
+        html: forestryHtml
+      }
+    }
+  ]
+}) }}
+{% endset -%}
+{% set NotesHtml %}
+  <form method="POST" action="/applications/{{ref}}/note" autocomplete="on" novalidate>
+    {{ crumbToken(crumb)}}
+    {{ govukTextarea({
+        id: 'note',
+        name: 'note',
+        classes: 'govuk-input--width-20',
+        label: {
+            text: 'Note',
+            classes: 'govuk-label'
+        },
+    hint: {
+        text: "Add notes."
+    }   }) }}
+    {{ govukButton({
+      text: "Submit",
+      attributes: {id: "btnSubmit"}
+    }) }}
+  </form>  
+{{ govukTable({
+  head: [
+    {
+      text: "Note"
+    },
+    {
+      text: "Added on"
+    },
+    {
+      text: "Added by"
+    }
+  ],
+  rows: notes
+}) }}
+{% endset -%}
+{% set MessagesHtml%}
+
+  <div class="govuk-grid-row">  
+       <form method="POST" action="/applications/messages/{{ref}}/create" autocomplete="on" novalidate>
+       {{ crumbToken(crumb)}}
+         {{ govukInput({
+           id: 'subject',
+            name: 'subject',
+            classes: 'govuk-input--width-10',
+            label: {
+                text: 'Subject',
+                classes: 'govuk-label'
+            }
+        }) }}
+        {{ govukTextarea({
+            id: 'data',
+            name: 'data',
+            classes: 'govuk-input--width-20',
+            label: {
+                text: 'Message',
+                classes: 'govuk-label'
+            }   }) }}
+       
+        {{ govukButton({
+          text: "Send",
+          attributes: {id: "btnSubmit"}
+        }) }}
+      </form>  
+  </div>
+  <div class="govuk-grid-row">     
+      {{ govukTable({
+        attributes: {
+          'data-module': 'moj-sortable-table'
+        },
+        head: [
+          {
+            text: "Grant Type",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Application",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Subject",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Created On",
+            attributes: {
+              "aria-sort": "none"
+            },
+            format: "date"
+          },
+          {
+            text: "View",
+            attributes: {
+              "aria-sort": "none"
+            }
+          }
+        ],
+        rows: messages.applicationmessages
+      }) }}
+    </div>
+{% endset -%}
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Applicant Details",
+      id: "farmer-details",
+      panel: {
+        html: ApplicantHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentHtml 
+      }
+    },
+    {
+      label: "Notes",
+      id: "notes",
+      panel: {
+        html: NotesHtml 
+      }
+    },
+    {
+      label: "Tasks",
+      id: "stages",
+      panel: {
+        html: stages 
+      }
+    },
+    {
+      label: "Workflow",
+      id: "workflow",
+      panel: {
+        html: auditHtml 
+      }
+    },
+    {
+      label: "Messages",
+      id: "messages",
+      panel: {
+        html: MessagesHtml 
+      }
+    }
+  ]
+}) }}
+  </div>
+{% endblock %}

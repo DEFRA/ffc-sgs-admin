@@ -1,0 +1,79 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}       
+{%- from "moj/components/timeline/macro.njk" import mojTimeline -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{% block pageTitle %}
+  {{ siteTitle }} - User Groups
+{% endblock %}
+{% block content %}
+  <div class="govuk-grid-row">  
+      <h1 class="govuk-heading-l">User Groups</h1>
+      {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+
+{{ mojSubNavigation({
+  label: 'Sub navigation',
+  items: [{
+    text: 'Grants',
+    href: '/grants'
+  },{
+    text: 'Tasks',
+    href: '/stages'
+  }, {
+    text: 'User Groups',
+    href: '/usergroups',
+    active: true
+  }, {
+    text: 'Business Process',
+    href: '/businessprocesses'
+  }]
+}) }}
+  </div>
+  <div class="govuk-grid-row">     
+      {{ govukTable({
+        attributes: {
+          'data-module': 'moj-sortable-table'
+        },
+        head: [
+          {
+            text: "Name",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Users",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Created By",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Created On",
+            attributes: {
+              "aria-sort": "none"
+            },
+            format: "date"
+          }
+        ],
+        rows: usergroups
+      }) }}
+    </div>
+  
+   
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card-detail.njk" import cardDetail %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+
+{% block pageTitle %}
+  {{ siteTitle }} - Start
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to application",
+    href: "/cart",
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+{% block content %}
+  <div class="govuk-grid-row">  
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Forestry information for {{businessName}}</h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row govuk-body">
+      <div class="govuk-grid-column-two-thirds">      
+        <form method="POST" action="/forestry" autocomplete="off" novalidate>
+           <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Please select the relevent Land Parcel ID's.</span>
+              </div>       
+                <hr class="govuk-grid-column-full"/>              
+                <div class="govuk-grid-column-two-thirds">
+                  NY1433
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  <input type="checkbox" id="forestry" name="forestry" value="NY1433"/>
+                </div>           
+                <hr class="govuk-grid-column-full"/>           
+                <div class="govuk-grid-column-two-thirds">
+                  NY1434
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  <input type="checkbox" id="forestry" name="forestry" value="NY1434"/>
+                </div>           
+                <hr class="govuk-grid-column-full"/>           
+                <div class="govuk-grid-column-two-thirds">
+                  NY1435
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  <input type="checkbox" id="forestry" name="forestry" value="NY1435"/>
+                </div>           
+                <hr class="govuk-grid-column-full"/>          
+                <div class="govuk-grid-column-two-thirds">
+                  NY1436
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  <input type="checkbox" id="forestry" name="forestry" value="NY1436"/>
+                </div>           
+                <hr class="govuk-grid-column-full"/>  
+            </div>            
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    {{ crumbToken(crumb)}}
+                    {{ govukButton({
+                      text: "Save & Continue",
+                      attributes: {id: "btnContinue"}
+                    }) }}
+                </div>
+            </div>              
+        </form>
+      </div>
+      <div class="govuk-grid-column-one-third  govuk-!-padding-top-4 govuk-body">
+        <hr class="sideBarColor"/>
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Why do we ask this?
+        </h2>        
+        <p>As you have selected forestry related equipment items we need up-to date information about the animal you keep to access you application correctly.</p>
+      </div>
+  </div>
+</div>
+{% endblock %}

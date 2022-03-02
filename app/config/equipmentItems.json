@@ -1,0 +1,67 @@
+[
+    {
+        "id":"FETF11",
+        "name":"Scarifying to aid tree planting",
+        "grantAmount": 12280.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "added":true,
+        "maxQuantity": 10
+    },
+    {
+        "id":"FETF12",
+        "name":"Smaller self-prepelled forwarders",
+        "grantAmount": 12280.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "maxQuantity": 10
+    },
+    {
+        "id":"FETF13",
+        "name":"Harvesting head",
+        "grantAmount": 16070.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "maxQuantity": 10
+    },
+    {
+        "id":"FETF15",
+        "name":"Tree shears capacity to fell 300mm diameter trees",
+        "grantAmount": 3219.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "maxQuantity": 10
+    },
+    {
+        "id":"FETF15",
+        "name":"Tree shears capacity to fell 650mm diameter trees",
+        "grantAmount": 15940.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "maxQuantity": 10
+    },
+    {
+        "id":"FETF16",
+        "name":"Forestry grab or grapple",
+        "grantAmount": 939.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "maxQuantity": 10
+    },
+    {
+        "id":"FETF17",
+        "name":"Timber cranes",
+        "grantAmount": 5391.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "maxQuantity": 10
+    },
+    {
+        "id":"FETF18",
+        "name":"Forestry / timber trailers small",
+        "grantAmount": 2558.00,
+        "categories":["Livestock","Forestry"],
+        "tags":["water", "slury", "prodictivity"],
+        "maxQuantity": 10
+    }
+]

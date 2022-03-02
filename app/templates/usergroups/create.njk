@@ -1,0 +1,51 @@
+{% extends '.layout.njk' %}
+
+{% from "./components/macro.njk" import conditionalButtons %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block pageTitle %}
+  {% if errorList %}
+    Error: 
+  {% endif %} Task Response - {{siteTitle}}
+{% endblock %}
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink,
+	  attributes: {id: 'linkBack'}
+  }) }}
+
+  {% if errorList %}
+    {{govukErrorSummary ({
+    "titleText": "There is a problem",
+    "errorList": errorList
+    }) }}
+  {% endif %}
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Approval Action</h1>
+      <form method="POST" action="{{ formActionPage }}" autocomplete="on" novalidate>
+        {{ crumbToken(crumb)}}      
+        {{ govukInput(inputkey) }}
+        {{ govukInput(inputname) }}
+        {{ govukInput(inputdescription) }}
+        {{ govukInput(inputmingrantamount) }}
+        {{ govukInput(inputmaxgrantamount) }}
+        {{ govukButton({
+          text: "Submit",
+          attributes: {id: "btnSubmit"}
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

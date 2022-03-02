@@ -1,0 +1,190 @@
+{% extends '.layout.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "./components/macro.njk" import crumbToken %}
+{% block pageTitle %}
+Agreement - {{siteTitle}}
+{% endblock %}
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back to application",
+    href: "/cart",
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+
+
+{% set checkboxConfirmOptional = {
+    idPrefix: "declaration",
+    name: "declaration",
+    items: [{
+      value: "true",
+      text: "I confirm that I have read and understand the Declaration Statements above
+and that I am happy to be contacted by Defra and RPA (or a third-party on
+their behalf) about the application",
+      checked: false,
+      selected: false
+    }]
+  }
+%}
+
+{% block content %}
+
+<div class="govuk-grid-row govuk-body">
+    <div class="govuk-grid-column-two-thirds govuk-body">
+        <h1 class="govuk-heading-l">Read and agree to declaration</h1>
+        <ul>
+            <li>
+                I confirm that, to the best of my knowledge and belief, all of the
+                information contained in this application is true and correct and I accept
+                full responsibility for it.
+            </li>
+            <li>
+                I understand that if I knowingly make a false representation to obtain
+                grant aid for myself or anyone else I risk prosecution, the recovery or
+                withholding of all grant payments, and exclusion from other schemes
+                operated by the RPA.
+            </li>
+            <li>
+                I understand that my information may also be shared with other
+                government departments and agencies for the purpose of fraud
+                prevention and detection, and that the application and evaluation of
+                grant funding is also subject to audit and reviews by internal auditors
+                who may need to access the information I submit in my application.
+            </li>
+            <li>
+                I understand that in the event this application is successful I will be
+                required to submit further information, as set out in the Farming
+                Equipment & Technology Fund Round 1 Manualin support of my claim. If
+                there is any change to the information I have provided I will notify Rural
+                Payments Agency without delay.
+            </li>
+            <li>
+                I confirm that I am an eligible applicant as detailed in the Farming
+                Equipment & Technology Fund Round 1 Manual.
+            </li>
+            <li> Iunderstand that my business may be inspected and I agree to give
+                access and to provide such assistance as may be required.
+            </li>
+            <li> I recognise that, where relevant, it is my responsibility to obtain any
+                necessary permissions from my landlord and in submitting this
+                application confirm that I have done so.
+            </li>
+            <li> I understand that if an agent submits this application on my behalf, it will
+                not limit my responsibility to comply with the terms and conditions set
+                out in Annexes [1] and [2] of the Farming Equipment & Technology Fund
+                Round 1 Manual, nor does it affect my personal responsibility to ensure
+            </li>
+            <li>I understand that any information I supply may be used by public bodies
+                or their appointed agents in connection with the Future Farming and
+                Countryside Programme, and that I may be contacted by Defra and RPA
+                (or a third-party on their behalf) about the application.
+            </li>
+            <li> For information on how we handle personal data go to www.gov.uk
+            </li>
+            <li>This declaration must be submitted by an individual empowered on the
+                Rural Payments system to make Legal changes or Full permissions
+                relating to this business.
+            </li>
+        </ul>
+    </div>
+
+    <div class="govuk-grid-column-one-third  govuk-!-padding-top-4 govuk-body">
+        <hr class="sideBarColor" />
+        <h2 class="govuk-heading-m" id="subsection-title">
+            Important Information
+        </h2>
+        <p>
+            You will not automatically get a
+            grant. The grant is expected to be
+            highly competitive and you are
+            competing against other
+            applications that will be scored
+            against set criteria as listed in the
+            Farming Equipment & Technology
+            Fund Round 1 Manual.
+        </p>
+        <p>
+            Buying your items in full before you
+            receive your Grant Funding
+            Agreement will invalidate your
+            application and it will be rejected.
+        </p>
+        <p>
+            If you know or recklessly make a
+            false statement to obtain grant aid
+            for yourself or anyone else you risk
+            prosecution, the recovery of all
+            grant payments, an additional
+            financial penalty and exclusion from other schemes operated by the RPA.
+        </p>
+        <p>I declare that I have read, understood and complied with all of the
+            relevant guidance information referred to in the Farming Equipment &
+        </p>
+        <hr />
+        <p>
+            <span class="govuk-caption-m">References</span>
+            <a href="#">Farming Equipment & Technology Fund Round 1 Manual.</a>
+        </p>
+        <hr />
+
+        </p>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <form method="POST" action="{{ formActionPage }}" autocomplete="off" novalidate="novalidate">
+            {{ crumbToken(crumb)}}
+            
+        <h2 class="govuk-heading-m">Declaration</h2>
+            {{ govukCheckboxes(checkboxConfirmOptional) }}
+            {{ govukRadios({
+                idPrefix: "ras",
+                name: "ras",
+                fieldset: {
+                    legend: {
+                    text: "Read and sign",
+                    classes: "govuk-fieldset__legend--m"
+                    }
+                },
+                hint: {
+                    text: "So that we can continue to improve our services and schemes, we may wish to
+                contact you in the future. Please indicate if you are happy for us, ora third party
+                working for us, to contact you."
+                },
+                items: [
+                    {
+                    value: "Yes",
+                    text: "Yes, I am happy to be contacted in the future"
+                    },
+                    {
+                    value: "No",
+                    text: "No, I would prefer not to be contacted"
+                    }
+                ]
+                }) }}
+            {{ govukButton({
+          text: "Confirm and send",
+          attributes: {id: "btnConfirmSend"}
+        }) }}
+        </form>
+    </div>
+</div>
+
+<div class="govuk-grid-row govuk-body">
+    <div class="govuk-grid-column-full">
+        <hr />
+        <p>
+            The Department for Environment, Food and Rural Affairs (Defra) is the data controller for personal data you
+            give to RPA. For information on how we handle personal data go to <a class="govuk-link"
+                href="https://www.gov.uk" target="_blank" rel="noopener noreferrer">GOV.UK (opens in a new tab)</a> and
+            search
+            <a class="govuk-link"
+                href="https://www.gov.uk/government/organisations/rural-payments-agency/about/personal-information-charter"
+                target="_blank" rel="noopener noreferrer">Rural Payments Agency personal information charter (opens in a
+                new tab).</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

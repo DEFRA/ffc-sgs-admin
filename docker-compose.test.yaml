@@ -1,0 +1,21 @@
+version: '3.8'
+
+# This override file should be used when running automated tests so
+# that test output is saved to the host
+
+services:
+  ffc-sgs-admin:
+    build:
+      target: development
+    image: ffc-sgs-admin-development
+    container_name: ffc-sgs-admin-test
+    environment:
+      NODE_ENV: test
+      GOOGLE_TAG_MANAGER_KEY: 'GTM-WJ5C78H'
+    command: npm run test
+    volumes:
+      - ./app/:/home/node/app/
+      - ./test/:/home/node/test/
+      - ./test-output/:/home/node/test-output/
+      - ./jest.config.js:/home/node/jest.config.js
+      - ./package.json:/home/node/package.json

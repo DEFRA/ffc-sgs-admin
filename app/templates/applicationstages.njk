@@ -1,0 +1,103 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Application Tasks
+{% endblock %}
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to applications",
+    href: "/applications",
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">  
+      <h1 class="govuk-heading-l">Application Tasks</h1>
+
+  </div>
+  <div class="govuk-grid-row">
+       
+
+{{ govukTable({
+  attributes: {
+    'data-module': 'moj-sortable-table'
+  },
+  head: [
+    {
+      text: "Reference No",
+      attributes: {
+        "aria-sort": "ascending"
+      }
+    },
+    {
+      text: "Name",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Created On",
+      attributes: {
+        "aria-sort": "none"
+      },
+      format: "date"
+    },
+    {
+      text: "User Groups",
+      attributes: {
+        "aria-sort": "none"
+      }
+    }
+  ],
+  rows: applicationstages
+}) }}
+{%- from "moj/components/pagination/macro.njk" import mojPagination -%}
+
+{{ mojPagination({
+  items: [{
+    text: '1',
+    href: '/page=1'
+  }, {
+    text: '2',
+    href: '/page=2',
+    selected: true
+  }, {
+    text: '3',
+    href: '/page=3'
+  }, {
+    type: 'dots'
+  }, {
+    text: '5',
+    href: '/page=5'
+  }],
+  results: {
+    count: 30,
+    from: 10,
+    to: 20,
+    text: 'pages'
+  },
+  previous: {
+    text: 'Previous',
+    href: ''
+  },
+  next: {
+    text: 'Next',
+    href: ''
+  }
+}) }}
+  </div>
+{% endblock %}

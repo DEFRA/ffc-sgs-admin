@@ -1,0 +1,166 @@
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "../../templates/components/timeout-warning/macro.njk" import govukTimeoutWarning %}
+
+{% from "moj/components/header/macro.njk" import mojHeader %}
+{% set assetPath = "/assets" %}
+{% set timeoutPath = "/session-timeout" %}
+{% set siteTitle = "Grants Administration" %}
+
+{% block pageTitle %}
+  {{ siteTitle }}
+{% endblock %}
+
+{% block head %}
+  <meta name="robots" content="noindex, nofollow">
+ 
+  <!--[if !IE 8]><!-->
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+  <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+  <% }) %>
+  <!--<![endif]-->
+ 
+    {% if cookiesPolicy.analytics %}
+      {% include "tag-manager/head-content.njk" %}
+    {% endif %}
+  {% endblock %}
+
+  {% block header %}
+  {% if user %}
+{{ mojHeader({
+  organisationLabel: {
+    text: 'GOV.UK',
+    href: '/'
+  },
+  serviceLabel: {
+    text: 'Farming Fund Adminstration',
+    href: '/'
+  },
+  navigation: {
+    label: 'Account navigation',
+    items: [{
+      text: 'Satish Chatap',
+      href: '/account',
+      active: true
+    }, {
+      text: 'Sign out',
+      href: '/logout'
+    }]
+  }
+
+}) }}
+{% else %}
+{{ mojHeader({
+  organisationLabel: {
+    text: 'GOV.UK',
+    href: '/'
+  },
+  serviceLabel: {
+    text: 'Farming Fund Adminstration',
+    href: '/'
+  },
+  navigation: {
+    label: 'Account navigation',
+    items: [ {
+      text: 'Sign In',
+      href: '/login'
+    }]
+  }
+
+}) }}
+{% endif %}
+    <div class="govuk-grid-row govuk-width-container">
+      {{ govukPhaseBanner({
+      tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/preview/SV_9EwLLuCwWGJMz8a?Q_CHL=preview&Q_SurveyVersionID=current" target="_blank" rel="noopener noreferrer">feedback</a> will help us to improve it.'
+    }) }}
+    </div>
+
+    {% if showTimeout %}  
+    {{govukTimeoutWarning({
+      "modalIdleTime":sessionTimeoutInMin,
+      "modalVisibleTime":10,
+      "redirectUrl":timeoutPath
+    })}}
+  {% endif %}
+      
+{%- from "moj/components/primary-navigation/macro.njk" import mojPrimaryNavigation -%}
+
+{{ mojPrimaryNavigation({
+  label: 'Primary navigation',
+  items: [
+    {
+      text: 'Dashboard',
+      href: '/',
+      active: true
+    },
+    {
+      text: 'Applications',
+      href: '/applications'
+    },
+    {
+      text: 'Administration',
+      href: '/stages'
+    },
+    {
+      text: 'Messaging',
+      href: '/messages'
+    },
+    {
+      text: 'My Task',
+      href: '/mytasks'
+    }
+  ]
+}) }}
+{% endblock %}
+
+  {% block bodyStart %}
+    {% if not cookiesPolicy.confirmed %}
+      {% include "cookies/cookie-banner.njk" %}
+    {% endif %}
+
+    {% if cookiesPolicy.analytics %}
+      {% include "tag-manager/body-content.njk" %}
+    {% endif %}
+  {% endblock %}
+
+  {% block footer %}
+    {{ govukFooter({
+  meta: {
+  html: '<h2 class="govuk-visually-hidden">Support links</h2>
+          <ul class="govuk-footer__inline-list">
+            <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="/adding-value/accessibility" rel="noopener noreferrer">
+                Accessibility
+              </a>
+            </li>
+
+            <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="/adding-value/cookies" rel="noopener noreferrer">
+                Cookies
+              </a>
+            </li>
+              <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="https://defragroup.eu.qualtrics.com/jfe/preview/SV_9EwLLuCwWGJMz8a?Q_CHL=preview&Q_SurveyVersionID=current" target="_blank" rel="noopener noreferrer">
+                Feedback
+              </a>
+            </li>
+
+            <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="https://www.gov.uk/government/organisations/rural-payments-agency/about/personal-information-charter" target="_blank" rel="noopener noreferrer">
+                Privacy
+              </a>
+            </li>
+          </ul>'
+    }
+}) }}
+  {% endblock %}
+  {% block bodyEnd %}
+       
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+<% }) %>
+  {% endblock %}

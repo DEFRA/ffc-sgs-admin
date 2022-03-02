@@ -1,0 +1,106 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}       
+{%- from "moj/components/timeline/macro.njk" import mojTimeline -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Grants
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">  
+      <h1 class="govuk-heading-l">Grants</h1>
+      {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+
+{{ mojSubNavigation({
+  label: 'Sub navigation',
+  items: [{
+    text: 'Grants',
+    href: '/grants',
+    active: true
+  },{
+    text: 'Tasks',
+    href: '/stages'
+  }, {
+    text: 'User Groups',
+    href: '/usergroups'
+  }, {
+    text: 'Business Process',
+    href: '/businessprocess'
+  }]
+}) }}
+  </div>
+  <div class="govuk-grid-row">     
+      {{ govukTable({
+        attributes: {
+          'data-module': 'moj-sortable-table'
+        },
+        head: [
+          {
+            text: "Id",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Grant Type",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Name",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Description",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Min Grant Amount",
+            attributes: {
+              "aria-sort": "none"
+            },
+            format: "numeric"
+          },
+          {
+            text: "Max Grant Amount",
+            attributes: {
+              "aria-sort": "none"
+            },
+            format: "numeric"
+          },
+          {
+            text: "Created By",
+            attributes: {
+              "aria-sort": "none"
+            }
+          },
+          {
+            text: "Created On",
+            attributes: {
+              "aria-sort": "none"
+            },
+            format: "date"
+          }
+        ],
+        rows: grants
+      }) }}
+    </div>
+  
+   
+{% endblock %}

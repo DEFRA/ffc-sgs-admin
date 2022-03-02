@@ -1,0 +1,28 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./macro.njk" import crumbToken %}
+{% macro cardDetail(params) %}
+  <div class="govuk-body">
+    <div class="govuk-grid-column-full"> 
+      <span style="background-color: #f3f2f1;">{{params.id | safe}}</span>
+      <span class="govuk-!-font-weight-bold">{{ params.name | safe }}</span>
+    </div>
+    <div class="govuk-grid-column-two-thirds"> 
+      <a class="govuk-link" href="#">Show eligibility details</a>
+       </div>
+    <div class="govuk-grid-column-one-third-right"> 
+      &nbsp; 
+    </div>
+    <div class="govuk-grid-column-one-third">Grant amount (each)</div>    
+    <div class="govuk-grid-column-one-third">Quality</div>
+    <div class="govuk-grid-column-one-third">Grant amount (total)</div>
+    <div class="govuk-grid-column-one-third">£ {{params.grantAmount}}</div>    
+    <div class="govuk-grid-column-one-third">
+      {{ params.quantity }}
+    </div>
+    <div class="govuk-grid-column-one-third">     
+      £ {{params.grantAmount * params.quantity}} 
+    </div>
+    <hr class="govuk-grid-column-full"/>
+  </div>
+{% endmacro %}

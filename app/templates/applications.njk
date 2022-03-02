@@ -1,0 +1,281 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+{%- from "moj/components/filter/macro.njk" import mojFilter -%}
+{%- from "moj/components/button-menu/macro.njk" import mojButtonMenu -%}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Start
+{% endblock %}
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to applications",
+    href: "/applications",
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">  
+      <h1 class="govuk-heading-l">Applications</h1>
+
+  </div>
+  <div class="govuk-grid-row">
+   {% set filterOptionsHtml %}
+
+  {{ govukInput({
+    id: 'keywords',
+    name: 'keywords',
+    label: {
+      text: 'Keywords',
+      classes: 'govuk-label--m'
+    },
+    hint: {
+    text: "e.g CRN, App Ref, Applicant Name, SBI"
+  }
+  }) }}
+
+  {{ govukCheckboxes({
+    idPrefix: 'type',
+    name: 'type',
+    classes: "govuk-checkboxes--small",
+    fieldset: {
+      legend: {
+        text: 'Grant Type',
+        classes: 'govuk-fieldset__legend--m'
+      }
+    },
+    items: [
+      {
+            href: '#',
+            text: 'Water'
+          }, {
+            href: '#',
+            text: 'Equipment',
+            checked: true
+          }, {
+            href: '#',
+            text: 'Productivity'
+          }, {
+            href: '#',
+            text: 'Slurry'
+          }, {
+            href: '#',
+            text: 'Robotics'
+          }, {
+            href: '#',
+            text: 'Adding Value'
+          }
+    ]
+  }) }}
+
+  {{ govukCheckboxes({
+    idPrefix: 'status',
+    name: 'status',
+    classes: "govuk-checkboxes--small",
+    fieldset: {
+      legend: {
+        text: 'Status',
+        classes: 'govuk-fieldset__legend--m'
+      }
+    },
+    items: [
+      {
+        value: '1',
+        text: 'Complete (5)'
+      },
+      {
+        value: '2',
+        text: 'New (3)',
+        checked: true
+      },
+      {
+        value: '3',
+        text: 'In progress (13)'
+      }
+    ]
+  }) }}
+
+{% endset %}
+
+
+<div class="moj-filter-layout">
+
+  <div class="moj-filter-layout__filter">
+
+    {{ mojFilter({
+      heading: {
+      text: 'Filter'
+      },
+      selectedFilters: {
+
+      heading: {
+        text: 'Selected filters'
+      },
+
+      clearLink: {
+        text: 'Clear filters'
+      },
+
+      categories: [
+        {
+          heading: {
+            text: 'Grant Type'
+          },
+          items: [ {
+            href: '#',
+            text: 'Equipment'
+          }]
+        },
+        {
+          heading: {
+            text: 'Status'
+          },
+          items: [{
+            href: '#',
+            text: 'New'
+          }]
+        }
+      ]
+    },
+      optionsHtml: filterOptionsHtml
+    }) }}
+
+  </div>
+
+  <div class="moj-filter-layout__content">
+
+  <div class="moj-action-bar">
+
+    <div class="moj-action-bar__filter"></div>
+
+    {{ mojButtonMenu({
+      items: [{
+        text: 'Send Email',
+        classes: 'govuk-button--secondary'
+      }, {
+        text: 'Create Task',
+        classes: 'govuk-button--secondary'
+      }]
+    }) }}
+
+  </div>
+
+  <div class="moj-scrollable-pane">
+
+    <div class="moj-scrollable-pane__wrapper">
+
+
+{{ govukTable({
+  attributes: {
+    'data-module': 'moj-sortable-table'
+  },
+  head: [
+    {
+      html: "<input type='checkbox' name='selectAll' id='selectAll'/>"
+    },
+    {
+      text: "Reference No",
+      attributes: {
+        "aria-sort": "ascending"
+      }
+    },
+    {
+      text: "Grant Type",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Name",
+      attributes: {
+        "aria-sort": "none"
+      }
+    },
+    {
+      text: "Submitted On",
+      attributes: {
+        "aria-sort": "none"
+      },
+      format: "date"
+    },
+    {
+      text: "Status",
+      attributes: {
+        "aria-sort": "none"
+      }
+    }
+  ],
+  rows: applications
+}) }}
+{%- from "moj/components/pagination/macro.njk" import mojPagination -%}
+
+{{ mojPagination({
+  items: [{
+    text: '1',
+    href: '/page=1'
+  }, {
+    text: '2',
+    href: '/page=2',
+    selected: true
+  }, {
+    text: '3',
+    href: '/page=3'
+  }, {
+    type: 'dots'
+  }, {
+    text: '5',
+    href: '/page=5'
+  }],
+  results: {
+    count: 30,
+    from: 10,
+    to: 20,
+    text: 'pages'
+  },
+  previous: {
+    text: 'Previous',
+    href: ''
+  },
+  next: {
+    text: 'Next',
+    href: ''
+  }
+}) }}
+
+    </div>
+
+  </div>
+</div>
+  </div>
+  <script type="javascript">
+  new MOJFrontend.FilterToggleButton({
+  bigModeMediaQuery: "(min-width: 48.063em)",
+  startHidden: true,
+  toggleButton: {
+    container: $(".moj-action-bar__filter"),
+    showText: "Show filter",
+    hideText: "Hide filter",
+    classes: "govuk-button--secondary",
+  },
+  closeButton: {
+    container: $(".moj-filter__header-action"),
+    text: "Close",
+  },
+  filter: {
+    container: $(".moj-filter"),
+  },
+});
+  </script>
+{% endblock %}

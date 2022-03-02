@@ -1,0 +1,58 @@
+{
+    "grantScheme": 
+    {
+        "key": "SGS001",
+        "name": "Equipment Grant",
+        "sections": [
+            {
+                "name": "eligibility",
+                "title": "Eligibility",
+                "questions": [
+                    {
+                        "key": "nature-of-business",
+                        "order": 10,
+                        "title": "What is your business?",
+                        "pageTitle": "",
+                        "backUrl": "start",
+                        "nextUrl": "business-location",
+                        "url": "nature-of-business",
+                        "baseUrl": "nature-of-business",
+                        "type": "single-answer",
+                        "answers": [
+                            {
+                            "key": "nature-of-business-A1",
+                            "value": "A grower or producer of agricultural, horticultural or forestry agri-products (a primary producer)",
+                            "hint": {
+                                "text": "For example, arable or livestock farmer, growing trees, fruit producer, salad grower"
+                            }
+                            },
+                            {
+                            "key": "nature-of-business-A2",
+                            "value": "Providing processing services to a primary producer",
+                            "hint": {
+                                "text": "For example, vegetable washing, mobile livestock slaughter services"
+                            }
+                            },
+                            {
+                            "key": "nature-of-business-A3",
+                            "value": "A separate processing business owned by a primary producer",
+                            "hint": {
+                                "text": "For example, cheese processing business owned by a dairy farmer"
+                            }
+                            },
+                            {
+                            "value": "divider"
+                            },
+                            {
+                            "key": "nature-of-business-A4",
+                            "value": "None of the above",
+                            "notEligible": true
+                            }
+                        ],
+                        "yarKey": "applicantBusiness"
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,67 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% block pageTitle %}
+  {{ siteTitle }} - Start
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-body">
+      <h1 class="govuk-heading-l">Check if you can apply for a Farming Transformation Fund Equipment Grant Grant</h1>
+      <p>Use this service to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>check if you can apply for a grant for your project (takes about 5 minutes)</li>
+        <li>check how well your project fits the funding priorities (takes about 15 minutes if you have all the project details)</li>
+      </ul>
+
+      <h2 class="govuk-heading-m">Who can apply</h2>
+      <p class="govuk-body">You can apply if you:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>are a grower or producer of agricultural, horticultural or forestry agri-products (a primary producer)</li>
+        <li>provide processing services to a primary producer</li>
+        <li>are a separate processing business 100% owned by a primary producer</li>
+        <li>will do the grant-funded work in England and your business is registered in England</li>
+        <li>estimate the project costs are over £87,500</li>
+      </ul>
+
+      {{ govukInsetText({
+        text: "If your project is eligible, you can submit your answers to the Rural Payments Agency (RPA) to request the full application form."
+      }) }}
+
+
+      {{ govukButton({
+        classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        href: button.nextLink,
+        isStartButton: true,
+        text: button.text
+      }) }}
+
+      <h2 class="govuk-heading-m">Before you start</h2>
+      
+      <p class="govuk-body">To use the checker, you need:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>information about your business (for example, number of employees, turnover)</li>
+        <li>information about the project (for example, the types of products being processed and how you will add value, the impact the project will have)</li>
+        <li>a list of the items you’d like to buy for the project</li>
+        <li>an estimate of the total cost of the items</li>
+      </ul>
+
+      <p>If you do not enter any information for more than 20 minutes, your application will time out and you will have to start again.</p>
+      
+      <h2 class="govuk-heading-m">Problems using the online service</h2>
+      <span>If you have any problems using the online service, contact the RPA.</span>
+
+      <br><br><h3 class="govuk-heading-s">Telephone</h3>
+      <p>Telephone: <b><a href="tel:03000200301"> 03000 200 301 </a></b></p>
+      <span>Monday to Friday, 9am to 5pm (except public holidays) </span><br/>
+      <a class="govuk-link" target="_blank" href="https://www.gov.uk/call-charges">Find out about call charges (opens in new tab)</a><br/>
+      
+      <br><h3 class="govuk-heading-s">Email</h3>
+      <p>Email: <a class="govuk-link" href="mailto:FTF@rpa.gov.uk">FTF@rpa.gov.uk</a></p>
+    </div>
+  </div>
+{% endblock %}

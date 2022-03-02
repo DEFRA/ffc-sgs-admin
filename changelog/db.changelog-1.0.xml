@@ -1,0 +1,399 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="SCHATAP (generated)" id="1642882939617-1">
+        <addColumn tableName="equipments">
+            <column name="categoryid" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-2">
+        <addColumn tableName="stages">
+            <column name="businessprocessid" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-3">
+        <addColumn tableName="stages">
+            <column name="nextid" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-4">
+        <addColumn tableName="businessprocesses">
+            <column name="nextid" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-5">
+        <addColumn tableName="applicationstages">
+            <column name="stageid" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-6">
+        <addColumn tableName="applications">
+            <column name="grant_type" type="varchar(20 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-7">
+        <addColumn tableName="applications">
+            <column name="reference" type="varchar(20 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-8">
+        <addColumn tableName="equipments">
+            <column name="name" type="varchar(100 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-9">
+        <addColumn tableName="grants">
+            <column name="grant_type" type="varchar(20 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-10">
+        <addColumn tableName="applicationstageresponses">
+            <column name="applicationstageid" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-11">
+        <addColumn tableName="usergroups">
+            <column name="name" type="varchar(100 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-12">
+        <addColumn tableName="grants">
+            <column name="key" type="varchar(20 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-13">
+        <addColumn tableName="stages">
+            <column autoIncrement="true" name="id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-14">
+        <addColumn tableName="equipments">
+            <column autoIncrement="true" name="id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-15">
+        <addColumn tableName="equipmentcategories">
+            <column autoIncrement="true" name="id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-16">
+        <addColumn tableName="businessprocesses">
+            <column autoIncrement="true" name="id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-17">
+        <addColumn tableName="applicationstages">
+            <column autoIncrement="true" name="id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-18">
+        <addColumn tableName="applicationstageresponses">
+            <column autoIncrement="true" name="id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-19">
+        <createTable tableName="stages">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stages_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="nextid" type="BIGINT"/>
+            <column name="businessprocessid" type="BIGINT"/>
+            <column name="usergroups" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="grant_type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="isstart" type="BOOLEAN"/>
+            <column defaultValueBoolean="true" name="active" type="BOOLEAN"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-20">
+        <createTable tableName="applications">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reference" type="VARCHAR(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="application_pkey"/>
+            </column>
+            <column name="grant_type" type="VARCHAR(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="application_pkey"/>
+            </column>
+            <column name="data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-21">
+        <createTable tableName="applicationstageresponses">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="applicationstageresponses_pkey"/>
+            </column>
+            <column name="applicationstageid" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remark" type="TEXT"/>
+            <column name="activity" type="TEXT"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-22">
+        <createTable tableName="applicationstages">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="applicationstages_pkey"/>
+            </column>
+            <column name="appref" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stageid" type="BIGINT"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-23">
+        <createTable tableName="businessprocesses">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="businessprocess_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="nextid" type="BIGINT"/>
+            <column name="grant_type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-24">
+        <createTable tableName="equipmentcategories">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="equipmentcategory_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-25">
+        <createTable tableName="equipments">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="equipment_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="equipment_pkey"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="amount" type="numeric"/>
+            <column name="quantity" type="INTEGER"/>
+            <column name="grant_type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="categoryid" type="BIGINT"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-26">
+        <createTable tableName="grants">
+            <column name="key" type="VARCHAR(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="grants_pkey"/>
+            </column>
+            <column name="grant_type" type="VARCHAR(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="grants_pkey"/>
+            </column>
+            <column name="data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="maxgrantamount" type="numeric"/>
+            <column name="mingrantamount" type="numeric"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-27">
+        <createTable tableName="usergroups">
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="usergroups_pkey"/>
+            </column>
+            <column name="users" type="TEXT"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-28">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="application_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-29">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="applicationstageresponse_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-30">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="applicationstages_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-31">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="businessprocesses_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-32">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="equipmentcategories_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-33">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="equipments_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-34">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="stages_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-35">
+        <addForeignKeyConstraint baseColumnNames="stageid" baseTableName="applicationstages" constraintName="applicationstages_stageid_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="stages" validate="true"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-36">
+        <addForeignKeyConstraint baseColumnNames="nextid" baseTableName="businessprocesses" constraintName="businessprocesses_nextid_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="businessprocesses" validate="true"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-37">
+        <addForeignKeyConstraint baseColumnNames="businessprocessid" baseTableName="stages" constraintName="stages_businessprocessid_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="businessprocesses" validate="true"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-38">
+        <addForeignKeyConstraint baseColumnNames="categoryid" baseTableName="equipments" constraintName="equipments_categoryid_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="equipmentcategories" validate="true"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-39">
+        <addForeignKeyConstraint baseColumnNames="nextid" baseTableName="stages" constraintName="stages_nextid_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="stages" validate="true"/>
+    </changeSet>
+    <changeSet author="SCHATAP (generated)" id="1642882939617-40">
+        <addForeignKeyConstraint baseColumnNames="applicationstageid" baseTableName="applicationstageresponses" constraintName="applicationstageresponses_applicationstageid_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="applicationstages" validate="true"/>
+    </changeSet>
+    
+    <changeSet author="SCHATAP (generated)" id="1642882939617-41">
+        <tagDatabase tag="v1.0.0" />
+    </changeSet>
+</databaseChangeLog>

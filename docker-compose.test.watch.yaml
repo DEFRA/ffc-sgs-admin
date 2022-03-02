@@ -1,0 +1,6 @@
+version: '3.8'
+
+services:
+  ffc-sgs-admin:
+    command: >
+      sh -c "npm run test:watch"

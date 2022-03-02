@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  ffc-sgs-admin:
+    build:
+      context: .
+      target: production
+    image: ffc-sgs-admin    
+    environment:     
+      NODE_ENV: production
+      PORT: ${PORT:-3000}
+      SITE_URL: localhost:3000
+      LOGIN_REQUIRED: ${LOGIN_REQUIRED:-false}
+      AUTH_USERNAME: ${AUTH_USERNAME:-grants}
+      AUTH_PASSWORD_HASH: ${AUTH_PASSWORD_HASH:-grants}
+      GOOGLE_TAG_MANAGER_KEY: 'GTM-WJ5C78H'
+      GOOGLE_TAG_MANAGER_SERVER_KEY: 'UA-179628664-4'
+      COOKIE_PASSWORD: thisistestcookiepasswordthisistestcookiepasswordthisistestcookiepassword
+      SERVICE_BUS_HOST: ${SERVICE_BUS_HOST:-notset}
+      SERVICE_BUS_PASSWORD: ${SERVICE_BUS_PASSWORD:-notset}
+      SERVICE_BUS_USER: ${SERVICE_BUS_USER:-notset}
+      PROJECT_DETAILS_QUEUE_ADDRESS: ${PROJECT_DETAILS_QUEUE_ADDRESS:-notset}
+      CONTACT_DETAILS_QUEUE_ADDRESS: ${CONTACT_DETAILS_QUEUE_ADDRESS:-notset}
+      APPLICATION_RECEIVED_SUBSCRIPTION_ADDRESS: ${APPLICATION_RECEIVED_SUBSCRIPTION_ADDRESS:-notset}
+      APPLICATION_DETAIL_TOPIC_ADDRESS: ${APPLICATION_DETAIL_TOPIC_ADDRESS:-notset}
+      BACKEND_POLLING_HOST: http://host.docker.internal:3021
+      POLLING_INTERVAL: 200
+      POLLING_RETRIES: 20
+      APPINSIGHTS_CLOUDROLE: ffc-sgs-admin
+      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY:-notset}
+      REDIS_HOSTNAME: redis
+      REDIS_PORT: 6379
+      REDIS_PARTITION: ffc-sgs-admin
+      REDIS_PASSWORD: ""
+      SESSION_CACHE_TTL: 3700000
+      POSTGRES_DB: ffc_sgs_admin
+      POSTGRES_PASSWORD: ppp
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: ffc-sgs-admin-postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_SCHEMA_NAME: public
+      SHAREPOINT_HOSTNAME: ${SHAREPOINT_HOSTNAME:-notset}
+      SHAREPOINT_SITE_PATH: ${SHAREPOINT_SITE_PATH:-notset}
+      SHAREPOINT_TENANT_ID: ${SHAREPOINT_TENANT_ID:-notset}
+      SHAREPOINT_CLIENT_ID: ${SHAREPOINT_CLIENT_ID:-notset}
+      SHAREPOINT_CLIENT_SECRET: ${SHAREPOINT_CLIENT_SECRET:-notset}
+      SHAREPOINT_DOCUMENT_LIBRARY: ${SHAREPOINT_DOCUMENT_LIBRARY:-notset}
+      SGS_NOTIFICATION_QUEUE_ADDRESS: ${SGS_NOTIFICATION_QUEUE_ADDRESS:-notset}
+      SGS_SERVICE_BUS_HOST: ${SGS_SERVICE_BUS_HOST:-notset}
+      SGS_SERVICE_BUS_PASSWORD: ${SGS_SERVICE_BUS_PASSWORD:-notset}
+      SGS_SERVICE_BUS_USER: ${SGS_SERVICE_BUS_USER:-notset}
+
+  ffc-sgs-admin-postgres:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: ffc_sgs_admin
+      POSTGRES_PASSWORD: ppp
+      POSTGRES_USER: postgres
+      APPINSIGHTS_CLOUDROLE: ffc-sgs-admin
+      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY:-notset}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+volumes:
+  postgres_data: {}

@@ -1,0 +1,56 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Start
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">  
+      <h1 class="govuk-heading-l">My Account</h1>
+  </div>
+  <div class="govuk-grid-row  govuk-body">    
+        <div class="govuk-grid-column-two-thirds  govuk-body">
+         {{ govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "User Name"
+                },
+                value: {
+                  text:  userName
+                }
+              },
+              {
+                key: {
+                  text: "First Name"
+                },
+                value: {
+                  text: firstName
+                }
+              },
+              {
+                key: {
+                  text: "Last Name"
+                },
+                value: {
+                  text: lastName
+                }
+              }
+            ]
+          })
+        }}
+        </div>
+  </div>
+{% endblock %}

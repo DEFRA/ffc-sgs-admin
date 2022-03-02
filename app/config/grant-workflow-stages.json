@@ -1,0 +1,50 @@
+{
+    
+    "Grant-Workflow-Stages": [
+        {
+            "key":"1",
+            "userGroup":["Admin","Customer Support", "Grant Approver", "Claim Approver"],
+            "grantKey":"SGS001",
+            "stage":"1",
+            "action-check":["Application Verification", "Score check", "Contact Details", "Notification"],
+            "tasks":[
+                { 
+                    "id": "1",
+                    "Desc":"Application Verification",
+                    "Help":"Application Verification",
+                    "Attachement":"Application Verification",                    
+                    "userGroup":["Admin","Customer Support", "Grant Approver", "Claim Approver"]
+                }
+            ],
+            "RuleToActivate":{}
+        },
+        {
+            "key":"2",
+            "userGroup":["Admin","Customer Support", "Grant Approver", "Claim Approver"],
+            "grantKey":"SGS001",
+            "stage":"2",
+            "action-check":["Application Verification", "Score check", "Contact Details", "Notification"]
+        },
+        {
+            "key":"3",
+            "userGroup":["Admin","Customer Support", "Grant Approver", "Claim Approver"],
+            "grantKey":"SGS001",
+            "stage":"3",
+            "action-check":["Application Verification", "Score check", "Contact Details", "Notification"]
+        },
+        {
+            "key":"4",
+            "userGroup":["Admin","Customer Support", "Grant Approver", "Claim Approver"],
+            "grantKey":"SGS001",
+            "stage":"4",
+            "action-check":["Application Verification", "Score check", "Contact Details", "Notification"]
+        },
+        {
+            "key":"5",
+            "userGroup":["Admin","Customer Support", "Grant Approver", "Claim Approver"],
+            "grantKey":"SGS001",
+            "stage":"5",
+            "action-check":["Application Verification", "Score check", "Contact Details", "Notification"]
+        }
+    ]
+}

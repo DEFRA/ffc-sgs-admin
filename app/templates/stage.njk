@@ -1,0 +1,132 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "./components/card-detail.njk" import cardDetail %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Application
+{% endblock %}
+{% set apprRefUrl = ["/applications/", appref ] | join %} 
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to application",
+    href: apprRefUrl,
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+{% set stageDetailHtml %}
+<h2 class="govuk-heading-m check-detail-heading">Application Task Details - {{ appref }}</h2>
+   {{ govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "Name"
+                },
+                value: {
+                  text: data.stagename
+                }
+              },
+              {
+                key: {
+                  text: "User Groups"
+                },
+                value: {
+                  text: data.usergroups
+                }
+              },
+              {
+                key: {
+                  text: "Business Process"
+                },
+                value: {
+                  text: data.businessprocessName
+                }
+              },
+              {
+                key: {
+                  text: "Status"
+                },
+                value: {
+                  html: data.status
+                }
+              },
+              {
+                key: {
+                  text: "Created On"
+                },
+                value: {
+                  text: data.created_at.toLocaleDateString('en-GB')
+                }
+              },
+              {
+                key: {
+                  text: "Action"
+                },
+                value: {
+                  html: data.action
+                }
+              }
+            ]
+          })
+        }}
+{% endset -%}       
+{% set responseHtml %}
+    <h2 class="govuk-heading-l">Responses</h2>
+    {{ govukTable({
+        head: [
+            {
+            text: "Task"
+            },
+            {
+            text: "Remark"
+            },
+            {
+            text: "Activity"
+            },
+            {
+            text: "Updated On"
+            },
+            {
+            text: "Status"
+            }
+        ],
+        rows: applicationstageresponses
+    }) }}             
+{% endset -%}
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Task Details",
+      id: "stage-details",
+      panel: {
+        html: stageDetailHtml
+      }
+    },
+    {
+      label: "Responses",
+      id: "responses",
+      panel: {
+        html: responseHtml
+      }
+    }
+  ]
+}) }}
+  </div>
+{% endblock %}

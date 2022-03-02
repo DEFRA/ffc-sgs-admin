@@ -1,0 +1,205 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Start
+{% endblock %}
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to application",
+    href: "/cart",
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">  
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">find and select the equipment items that your want funding for</h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+
+      {%- set filterOptionsHtml %}
+
+        {{ govukInput({
+          id: 'keywords',
+          name: 'keywords',
+          label: {
+            text: 'Keywords',
+            classes: 'govuk-label--m'
+          }
+        }) }}
+
+        {{ govukCheckboxes({
+          idPrefix: 'category',
+          name: 'Category',
+          classes: "govuk-checkboxes--small",
+          fieldset: {
+            legend: {
+              text: 'Category',
+              classes: 'govuk-fieldset__legend--m'
+            }
+          },
+          items: [
+            {
+              value: '1',
+              text: 'Horticultural',
+              checked: true
+            },
+            {
+              value: '2',
+              text: 'Resource management',
+              checked: true
+            },
+            {
+              value: '3',
+              text: 'Livestock'
+            },
+            {
+              value: '4',
+              text: 'Forestry'
+            },
+            {
+              value: '5',
+              text: 'General'
+            }
+          ]
+        }) }}
+
+        {{ govukCheckboxes({
+          idPrefix: 'tags',
+          name: 'tags',
+          classes: "govuk-checkboxes--small",
+          fieldset: {
+            legend: {
+              text: 'Tags',
+              classes: 'govuk-fieldset__legend--m'
+            }
+          },
+          items: [
+            {
+              value: 'Productivity',
+              text: 'Productivity',
+              checked: true
+            },
+            {
+              value: 'Water',
+              text: 'Water'
+            },
+            {
+              value: 'Slurry',
+              text: 'Slurry',
+              checked: false
+            },
+            {
+              value: 'Environment',
+              text: 'Environment',
+              checked: false
+            },
+            {
+              value: 'Handling & Weighing',
+              text: 'Handling & Weighing',
+              checked: false
+            },
+            {
+              value: 'Seeding',
+              text: 'Seeding',
+              checked: false
+            },
+            {
+              value: 'Milk',
+              text: 'Milk',
+              checked: false
+            },
+            {
+              value: 'Automation',
+              text: 'Automation',
+              checked: false
+            }
+          ]
+        }) }}
+      {% endset -%}
+
+      {{ mojFilter({
+        heading: {
+          text: 'Filter'
+        },
+        selectedFilters: {
+
+          heading: {
+            text: 'Selected filters'
+          },
+
+          clearLink: {
+            text: 'Clear filters'
+          },
+
+          categories: [
+            {
+              heading: {
+                text: 'Category'
+              },
+              items: [{
+                href: '/path/to/remove/this',
+                text: 'Horticultural'
+              }, {
+                href: '/path/to/remove/this',
+                text: 'Resource Management'
+              }]
+            },
+            {
+              heading: {
+                text: 'Tags'
+              },
+              items: [{
+                href: '/path/to/remove/this',
+                text: 'Productivity'
+              }]
+            }
+          ]
+        },
+        optionsHtml: filterOptionsHtml
+      }) }}
+    </div>
+      <div class="govuk-grid-column-two-thirds">
+          <div class="govuk-grid-row">
+                {% for equipment in equipments %}
+                  <div class="govuk-grid-column-full">
+                    <form method="POST" action="/equipments/addremove" novalidate="novalidate">
+                    {{ crumbToken(crumb)}}
+                    {{ card({
+                      "grantAmountTotal": equipment.grantAmountTotal,
+                      "added": equipment.added,
+                      "name": equipment.name,
+                      "grantAmount": equipment.grantAmount,
+                      "id": equipment.id,
+                      "quantities": equipment.quantities,
+                      "quantity": equipment.quantity
+                    }) }}                
+                    </form>
+                  </div>
+                {% endfor %}
+          </div>
+          
+          <div class="govuk-grid-row">
+                {{ govukButton({
+                  href: "/cart",
+                  text: "Continue",
+                  attributes: {id: "btnContinue"}
+                }) }}
+          </div>
+      </div>
+</div>
+{% endblock %}

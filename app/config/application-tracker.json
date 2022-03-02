@@ -1,0 +1,11 @@
+{
+    "applicationProgress":[
+        {
+
+            "Grant-Workflow-Stage-id": "1",
+            "ApplicationID":"1",
+            "Approved?":false,
+            "Remark": ""
+        }
+    ]
+}

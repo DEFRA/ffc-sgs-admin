@@ -1,0 +1,182 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card-detail.njk" import cardDetail %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{% from "./components/macro.njk" import crumbToken %}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Start
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">  
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">Application for:  {{businessName}}</p>
+    </div>
+  </div>
+  <div class="govuk-grid-row">  
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Apply for a farming equipment grant</h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row govuk-body">
+      <div class="govuk-grid-column-two-thirds">
+           <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Your equipment selections</span>
+                <hr/>
+              </div>
+              <div class="govuk-grid-column-full">
+                {% if equipments %}
+                  {% for equipment in equipments %}
+                      {{ cardDetail({
+                        "grantAmountTotal": equipment.grantAmountTotal,
+                        "added": equipment.added,
+                        "name": equipment.name,
+                        "grantAmount": equipment.grantAmount,
+                        "id": equipment.id,
+                        "quantities": equipment.quantities,
+                        "quantity": equipment.quantity
+                      }) }}
+                  {% endfor %}
+                {% else %}    
+                  No selections                
+                  <hr/>
+                {% endif %}                 
+              </div>  
+              <div class="govuk-grid-column-full"> 
+                {{ govukButton({
+                    text: "Add item(s)",
+                    href: "/equipments",
+                    classes: "govuk-button--secondary"
+                  }) }}</div>
+              <div class="govuk-grid-column-full">                    
+                  <hr/>
+                    <div class="govuk-grid-column-two-thirds">
+                      Grant Total
+                    </div> 
+                    <div class="govuk-grid-column-one-third-right">
+                      £ {{ grandTotal }}
+                    </div>
+                  <hr/> 
+              </div>
+            </div>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Business and personal details</span>
+                <hr/>
+              </div>
+              <div class="govuk-grid-column-full">
+                <div class="govuk-grid-column-two-thirds">
+                  <a href="/farmer-details">Application details</a>
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  {{govukTag({
+                    text: applicationStatus,
+                    classes: "govuk-tag--grey"
+                  })}}
+                </div>                           
+                <hr class="govuk-grid-column-full"/>
+              </div>
+            </div>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Supplementary</span>
+                <hr/>
+              </div>
+              <div class="govuk-grid-column-full">
+                <div class="govuk-grid-column-two-thirds">
+                  <a href="/livestock">Livestock information</a>
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  {{govukTag({
+                    text: liveStockStatus,
+                    classes: "govuk-tag--grey"
+                  })}}
+                </div>           
+                <hr class="govuk-grid-column-full"/>
+                <div class="govuk-grid-column-two-thirds">
+                  <a href="/forestry">Forestry information</a>
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  {{govukTag({
+                    text: forestryStatus,
+                    classes: "govuk-tag--grey"
+                  })}}
+                </div>           
+                <hr class="govuk-grid-column-full"/>
+              </div>
+            </div>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Agreement</span>
+                <hr/>
+              </div>
+              <div class="govuk-grid-column-full">
+                <div class="govuk-grid-column-two-thirds">
+                  <a href="/agreement">Read and agree to declaration</a>
+                </div> 
+                <div class="govuk-grid-column-one-third-right">
+                  {{govukTag({
+                    text: agreementStatus,
+                    classes: "govuk-tag--grey"
+                  })}}
+                </div>           
+                <hr class="govuk-grid-column-full"/>
+              </div>
+            </div>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Eligibility</span>
+                <hr/>
+              </div>
+              <div class="govuk-grid-column-full">
+              {% if agreementStatus ==='completed' and forestryStatus ==='completed' and liveStockStatus ==='completed' and  grandTotal> 0 %}
+              <p>Based on your selected and details we can confirm that:</p>
+              <div class="govuk-!-font-weight-bold">
+                <span>You are eligible to apply for this grant.</span>
+              </div>
+              {% else %}
+                Supplementary details need to be provided to support the application.
+                {% endif %}
+              </div>              
+              <hr class="govuk-grid-column-full"/>
+            </div>
+      </div>
+      <div class="govuk-grid-column-one-third  govuk-!-padding-top-4 govuk-body">
+        <hr class="sideBarColor"/>
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Not Submitted
+        </h2>        
+        <p>This application is saved but has not been submitted</p>
+        <p>Make sure that you submit the completed application before the deadline :</p>
+        <p>12:59pm 12 January 2023</p>
+        <hr/>
+        <p>Note that the minimum grant value is £2,000 and the maximum grant value is £25,000.</p>
+        <p>You can apply for a total of £50,000 over multiple rounds.</p>    
+        <hr/>
+        <h3>Reference</h3>
+        <a href="#">Farming Equipment & Technology Fund Round 1 Manual</a>
+      </div>
+  </div>             
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <form method="POST" action="/cart" autocomplete="off" novalidate>
+          {{ crumbToken(crumb)}}
+          {{ govukButton({
+            text: "Check answers and submit",
+            attributes: {id: "btnContinue"}
+          }) }}
+          </form>
+      </div>
+  </div>    
+</div>
+{% endblock %}

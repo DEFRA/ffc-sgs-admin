@@ -1,0 +1,45 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./macro.njk" import crumbToken %}
+{% macro card(params) %}
+  <div class="govuk-body">
+    <div class="govuk-grid-column-full"> 
+      <span style="background-color: #f3f2f1;">{{params.id | safe}}</span>
+      <span class="govuk-!-font-weight-bold">{{ params.name | safe }}</span>
+    </div>
+    <div class="govuk-grid-column-two-thirds"> 
+      <a class="govuk-link" href="#">Show eligibility details</a>
+       </div>
+    <div class="govuk-grid-column-one-third-right"> 
+      &nbsp; 
+    </div>
+    <div class="govuk-grid-column-one-third">Grant amount (each)</div>    
+    <div class="govuk-grid-column-one-third">Quality</div>
+    <div class="govuk-grid-column-one-third">Grant amount (total)</div>
+    <div class="govuk-grid-column-one-third">£ {{params.grantAmount}}</div>    
+    <div class="govuk-grid-column-one-third">
+      {{ govukSelect({
+        id: "quantity",
+        name: "quantity",
+        items: params.quantities
+      }) }}
+    </div>
+    <div class="govuk-grid-column-one-third">     
+      £ {{params.grantAmount * params.quantity}} 
+      <br/>        
+      {% if not params.added %}
+      {{ govukButton({
+        text: "Add item"
+      }) }}
+      {% endif %}  
+      {% if params.added %}
+         {{ govukButton({
+            text: "Remove item"
+          }) }}
+      {% endif %}   
+    </div>
+    <hr class="govuk-grid-column-full"/>
+    <input type="hidden" name="id" id="id" value="{{ params.id }}"  autocomplete="off" />
+    <input type="hidden" name="isRemovable" id="isRemovable" value="{{ params.added }}"  autocomplete="off" />
+  </div>
+{% endmacro %}

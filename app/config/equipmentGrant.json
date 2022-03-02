@@ -1,0 +1,86 @@
+{
+  "grants" : [ 
+    {
+      "key": "SGS001",
+      "name": "Equipment Grant",
+      "sections": [
+        {
+          "key": "eligibility",
+          "title": "Eligibility",
+          "questions": [
+            {
+              "key": "nature-of-business",
+              "title": "What is your business?",
+              "pageTitle": "",
+              "backUrl": "start",
+              "nextUrl": "business-location",
+              "url": "nature-of-business",
+              "baseUrl": "nature-of-business",
+              "type": "single-answer",
+              "fundingPriorities": "",
+              "minAnswerCount": 1,
+              "ga": { "dimension": "", "value": "" },
+              "ineligibleContent": {
+                "messageContent": "<span>This grant is for businesses who:</span><ul class=\"govuk-body\"><li>are agricultural, horticultural or forestry producers (primary producers)</li><li>provide processing services to a primary producer</li><li>are a separate processing business owned by a primary producer</li></ul>",
+                "messageLink": {
+                  "url": "https://www.gov.uk/topic/farming-food-grants-payments/rural-grants-payments",
+                  "title": "See other grants you may be eligible for."
+                }
+              },
+              "validate": [
+                {
+                  "type": "NOT_EMPTY",
+                  "error": "Select the option that applies to your business"
+                }
+              ],
+              "sidebar": {
+                "values": [{
+                  "heading": "Eligibility",
+                  "content": [{
+                    "para": "This grant is for businesses who:",
+                    "items": [
+                      "are agricultural, horticultural or forestry producers (primary producers)",
+                      "provide processing services to a primary producer",
+                      "are a separate processing business owned by a primary producer"
+                    ]
+                  }]
+                }]
+              },
+              "answers": [
+                {
+                  "key": "nature-of-business-A1",
+                  "value": "A grower or producer of agricultural, horticultural or forestry agri-products (a primary producer)",
+                  "hint": {
+                    "text": "For example, arable or livestock farmer, growing trees, fruit producer, salad grower"
+                  }
+                },
+                {
+                  "key": "nature-of-business-A2",
+                  "value": "Providing processing services to a primary producer",
+                  "hint": {
+                    "text": "For example, vegetable washing, mobile livestock slaughter services"
+                  }
+                },
+                {
+                  "key": "nature-of-business-A3",
+                  "value": "A separate processing business owned by a primary producer",
+                  "hint": {
+                    "text": "For example, cheese processing business owned by a dairy farmer"
+                  }
+                },
+                {
+                  "value": "divider"
+                },
+                {
+                  "key": "nature-of-business-A4",
+                  "value": "None of the above",
+                  "notEligible": true
+                }
+              ],
+              "yarKey": "applicantBusiness"
+            }
+          ]
+      }]
+    }
+  ]
+}

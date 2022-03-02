@@ -1,0 +1,154 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card.njk" import card %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}       
+{%- from "moj/components/timeline/macro.njk" import mojTimeline -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+{%- from "moj/components/banner/macro.njk" import mojBanner -%}
+
+{% block pageTitle %}
+  {{ siteTitle }} - Dashboard
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">  
+      <h1 class="govuk-heading-l">Dashboard</h1>
+  </div>
+  <div class="govuk-grid-row"> 
+{%- from "moj/components/notification-badge/macro.njk" import mojNotificationBadge -%}
+
+{% set bannerHtml %}
+  <h2 class="govuk-heading-m">You have 
+{{ mojNotificationBadge({
+  text: "10"
+}) }} applications to approve.
+  
+  </h2>
+  
+{% endset %}
+
+{{ mojBanner({
+  type: 'information',
+  html: bannerHtml
+}) }}
+  </div>
+  <div class="govuk-grid-row"> 
+  <div class="govuk-grid-column-two-thirds  govuk-body">
+  {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+
+{{ govukAccordion({
+  id: "accordion-default",
+  items: [
+    {
+      heading: {
+        text: "How to assess application?"
+      },
+      content: {
+        html: "<p class='govuk-body'>This is the content for How to assess application.</p>"
+      }
+    },
+    {
+      heading: {
+        text: "How to request more information from applicant?"
+      },
+      content: {
+        html: "<p class='govuk-body'>This is the content for how to request more information from applicant.</p>"
+      }
+    },
+      {
+      heading: {
+        text: "Know your responsibility"
+      },
+      content: {
+        html: "<p class='govuk-body'>This is the content for Know your responsibility.</p>"
+      }
+    },
+      {
+      heading: {
+        text: "User feedback"
+      },
+      content: {
+        html: "<p class='govuk-body'>This is the content for user feedback.</p>"
+      }
+    }
+  ]
+}) }}
+  </div>
+  
+       <div class="govuk-grid-column-one-third  govuk-body">
+        {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% set html %}
+  <p class="govuk-notification-banner__heading">
+    You have 7 days left to respond on one or more application before SLA expire.
+    <a class="govuk-notification-banner__link" href="/applications">View application</a>.
+  </p>
+{% endset %}
+
+{{ govukNotificationBanner({
+  html: html
+}) }}
+        </div>
+  </div>
+  <div class="govuk-grid-row  govuk-body">
+    
+  <div class="govuk-grid-column-one-third  govuk-body">
+        {{ govukWarningText({
+            html: "<h2 class='govuk-heading-m'>Check amount pending from available grant for this year.</h2>",
+            iconFallbackText: "Warning"
+          })
+        }}
+        </div>
+  <div class="govuk-grid-column-two-thirds  govuk-body">
+  {% from "govuk/components/table/macro.njk" import govukTable %}
+
+{{ govukTable({
+  caption: "Dates and amounts",
+  captionClasses: "govuk-table__caption--m",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Date"
+    },
+    {
+      text: "Amount"
+    }
+  ],
+  rows: [
+    [
+      {
+        text: "First 6 weeks"
+      },
+      {
+        text: "£109.80 per week"
+      }
+    ],
+    [
+      {
+        text: "Next 33 weeks"
+      },
+      {
+        text: "£109.80 per week"
+      }
+    ],
+    [
+      {
+        text: "Total estimated grant pay"
+      },
+      {
+        text: "£4,282.20"
+      }
+    ]
+  ]
+}) }}
+  </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,205 @@
+{% extends '.layout.njk' %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}    
+{% from "moj/components/filter/macro.njk" import mojFilter %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "./components/card-detail.njk" import cardDetail %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "./components/macro.njk" import crumbToken %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+
+{% block pageTitle %}
+  {{ siteTitle }} - Start
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to application",
+    href: "/cart",
+	  attributes: {id: 'linkBack'}
+  }) }}
+{% endblock %}
+{% block content %}
+  <div class="govuk-grid-row">  
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Livestock information for {{businessName}}</h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row govuk-body">
+  Please check the details below and update if needed.
+  </div>
+  
+        <form method="POST" action="/livestock" autocomplete="off" novalidate>
+  <div class="govuk-grid-row govuk-body">
+      <div class="govuk-grid-column-two-thirds">
+           <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Bovine animals </span>
+              </div>
+              <p class="govuk-grid-column-full">
+                List of the approximate number of bovine animals on the farm at the time of making the application.
+              </p>
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Below 6 months"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "Below6months",
+                    name: "Below6months"
+                    }) }}
+              </div>  
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "From 6 months to 2 year old"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "from6monthto2year",
+                    name: "from6monthto2year"
+                    }) }}
+              </div> 
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Dairy cows"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "dairyCows",
+                    name: "dairyCows"
+                    }) }}
+              </div>   
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Other cattle, over 2 years old"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "otherCattleOver2Year",
+                    name: "otherCattleOver2Year"
+                    }) }}
+              </div>
+            </div>
+            
+           <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>Other animals </span>
+              </div>
+              <p class="govuk-grid-column-full">
+                List of the approximate number of bovine animals on the farm at the time of making the application.
+              </p>
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Sheep and goats"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "shipAndGoats",
+                    name: "shipAndGoats"
+                    }) }}
+              </div>  
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Pigs (breeding sows over 50kg)"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "pigsOver50Kg",
+                    name: "pigsOver50Kg"
+                    }) }}
+              </div> 
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Pigs (other)"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "pigsOther",
+                    name: "pigsOther"
+                    }) }}
+              </div>   
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Poultry (laying hens)"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "poultryLayingHens",
+                    name: "poultryLayingHens"
+                    }) }}
+              </div>   
+              <div class="govuk-grid-column-full">              
+                {{ govukInput({
+                    label: {
+                        text: "Poultry (other)"
+                    },
+                    classes: "govuk-input--width-3",
+                    id: "poultryOther",
+                    name: "poultryOther"
+                    }) }}
+              </div>  
+            </div>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-font-weight-bold">
+                <span>County Parish Holding</span>
+                <hr/>
+              </div>
+              <div class="govuk-grid-column-full">
+                {{ govukDateInput({
+                id: "cph",
+                namePrefix: "cph",
+                fieldset: {
+                    legend: {
+                    text: "What is the County Parish Holding (CPH) number where you record your animal movements"
+                    }
+                },
+                hint: {
+                    text: "08/123/4567"
+                }
+                }) }}
+              </div>
+            </div>
+            <div class="govuk-grid-row">
+                {{ govukCheckboxes({
+                idPrefix: "organisation",
+                name: "organisation",
+                classes: "govuk-checkboxes--small",
+                items: [
+                    {
+                    value: "npcph",
+                    text: "I currently do not have a county perish holding number."
+                    }
+                ]
+                }) }}
+            </div>
+      </div>
+      <div class="govuk-grid-column-one-third  govuk-!-padding-top-4 govuk-body">
+        <hr class="sideBarColor"/>
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Why do we ask this?
+        </h2>        
+        <p>As you have selected livestock related equipment items we need up-to date information about the animal you keep to access you application correctly.</p>
+      </div>
+  </div>
+  
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+          {{ crumbToken(crumb)}}
+          {{ govukButton({
+            text: "Save & Continue",
+            attributes: {id: "btnContinue"}
+          }) }}
+      </div>
+    </div>
+    
+        </form>
+</div>
+{% endblock %}

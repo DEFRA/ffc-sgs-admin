@@ -1,0 +1,52 @@
+{
+    "applicationId": "0012131231231",
+    "grantKey":"SGS001",
+    "selectedEquipments":[
+        {
+            "id":"FETF11",
+            "name":"Scarifying to aid tree planting",
+            "grant-amount": 12280.00,
+            "categories":["Livestock","Forestry"],
+            "tags":["water", "slury", "prodictivity"]
+        },
+        {
+            "id":"FETF12",
+            "name":"Smaller self-prepelled forwarders",
+            "grant-amount": 12280.00,
+            "categories":["Livestock","Forestry"],
+            "tags":["water", "slury", "prodictivity"]
+        }
+    ],
+    "applicant": 
+        {
+            "firstName":"",
+            "lastName":"",
+            "middleName":"",
+            "address":{
+                "building-street-name":"",
+                "town":"",
+                "county":"",
+                "postcode":""
+            },
+            "contact-details":{
+                "mobile":"",
+                "landline":"",
+                "email":""
+            },
+            "farm-details":{
+                "postcode":"RG6 7EE",
+                "tenancy-agreement":""
+            },
+            "businessDetails":{
+            "projectName":"",
+            "businessName":"",
+            "noOfEmployees":"",
+            "businessTurnover":"",
+            "SBI":""
+            },        
+            "funding-details":{
+            "amount-requested":"",
+            "grant-amount":""
+        }
+    }
+}

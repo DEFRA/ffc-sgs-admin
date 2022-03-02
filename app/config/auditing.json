@@ -1,0 +1,20 @@
+{
+    "auditing":[
+        {
+            "key":"1",
+            "action":"Application Verification",
+            "actionId":"1",
+            "remark":"Application Verified and approved",
+            "createdOn":"2021-10-12",
+            "createdBy":"Satish Chatap"
+        },
+        {
+            "key":"2",
+            "action":"Score check",
+            "actionId":"2",
+            "remark":"Score checked",
+            "createdOn":"2021-10-12",
+            "createdBy":"Satish Chatap"
+        }
+    ]
+}

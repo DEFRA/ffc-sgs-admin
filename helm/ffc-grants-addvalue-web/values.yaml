@@ -1,0 +1,104 @@
+environment: development
+name: ffc-sgs-admin
+namespace: ffc-grants
+workstream: ffc-grants
+image: ffc-sgs-admin
+
+labels: {}
+
+appInsights:
+  key: not-a-real-key
+
+azureIdentity:
+  clientID: not-a-real-clientID
+  resourceID: not-a-real-resourceID
+  
+containerConfigMap:
+  name: ffc-sgs-admin-config-map
+
+containerSecret:
+  name: ffc-sgs-admin-container-secret
+  type: Opaque
+
+deployment:
+  restartPolicy: Always
+  priorityClassName: high
+  minReadySeconds: 2
+  redeployOnChange: update this field to force a change
+  runAsNonRoot: true
+  runAsUser: 30303
+  replicas: 2
+  minReplicas: 2
+  maxReplicas: 4
+  cpuThreshold: 20
+  memoryThreshold: 20
+
+container:
+  imagePullPolicy: IfNotPresent
+  requestMemory: 120Mi
+  requestCpu: 120m
+  limitMemory: 120Mi
+  limitCpu: 120m
+  port: 3000
+  redisHostname: redis
+  redisPassword: redis
+  cookiePassword: thisisnotarealpasswordthisisnotarealpassword
+  redisPort: 6379
+  redisPartition: ffc-sgs-admin
+  sessionCacheTTL: 900000
+  messageQueueHost: dummy
+  projectDetailsQueueAddress: project-details
+  contactDetailsQueueAddress: contact-details
+  applicationSubscriptionAddress: applicaiton-admin-subscription
+  applicationDetailTopicAddress: application-details-topic
+  loginRequired: false
+  authUsername: grants
+  authPasswordHash: dummy
+  backendPollingHost: http://ffc-grants-addval-eligibility
+  pollingInterval: 200
+  pollingRetries: 20
+  protectiveMonitoringUrl:
+  googleTagManagerKey: dummy
+  googleTagManagerServerKey: dummy
+  startPageUrl: dummy
+  surveyLink: dummy
+  sharePointHostname: not-a-real-value
+  sharePointSitePath: not-a-real-value
+  sharePointTenantId: not-a-real-value
+  sharePointClientId: not-a-real-value
+  sharePointClientSecret: not-a-real-value
+  sharePointDocumentLibrary: not-a-real-value
+  sgsNotificationQueueAddress: sgs-notification
+  sgsMessageQueueHost: sgs-MessageQueueHost
+postgresService:
+  postgresDb: ffc_sgs_admin
+  postgresExternalName:
+  postgresHost: ffc-sgs-admin-postgres
+  postgresPort: 5432
+  postgresSchema: public
+  postgresUser: postgres
+
+livenessProbe:
+  path: /healthz
+  port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
+
+readinessProbe:
+  path: /healthy
+  port: 3000
+  initialDelaySeconds: 20
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
+
+service:
+  port: 80
+
+ingress:
+  class: nginx
+  endpoint: ffc-grants-frontend
+  server: example.com
+  path: /adding-value
