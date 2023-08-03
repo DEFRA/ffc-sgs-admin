@@ -40,7 +40,7 @@
     "@hapi/vision": "^6.1.0",
     "@hapi/wreck": "^17.1.0",
     "@hapi/yar": "^10.1.0",
-    "@ministryofjustice/frontend": "^1.0.1",
+    "@ministryofjustice/frontend": "^1.8.0",
     "@pnp/nodejs-commonjs": "^2.11.0",
     "applicationinsights": "^1.8.10",
     "bcrypt": "^5.0.1",
